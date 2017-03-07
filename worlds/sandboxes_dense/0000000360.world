@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='us-ascii'?>
+<sdf version="1.4">
+  <world name="default">
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <gravity>0 0 -9.8</gravity>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <model name="Surrounding">
+      <static>1</static>
+			<link name="Ceiling">
+        <collision name="Ceiling_Collision">
+          <geometry>
+            <box>
+              <size>20 20 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="Ceiling_Visual">
+          <geometry>
+            <box>
+              <size>20 20 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/PaintedWall</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 4.05 0 0 0</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name="Wall_South">
+        <collision name="Wall_South_Collision">
+          <geometry>
+            <box>
+              <size>20 0 4</size>
+            </box>
+          </geometry>
+          <pose>0 0 2 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="Wall_South_Visual">
+          <pose>0 0 2 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>20 0 4</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/RedTransparent</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <pose>0 -10 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name="Wall_East">
+        <collision name="Wall_21_Collision">
+          <geometry>
+            <box>
+              <size>20 0 4</size>
+            </box>
+          </geometry>
+          <pose>0 0 2 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="Wall_21_Visual">
+          <pose>0 0 2 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>20 0 4</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/GreenGlow</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <pose>10 0 0 0 -0 1.5708</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name="Wall_North">
+        <collision name="Wall_22_Collision">
+          <geometry>
+            <box>
+              <size>20 0.2 4</size>
+            </box>
+          </geometry>
+          <pose>0 0 2 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="Wall_22_Visual">
+          <pose>0 0 2 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>20 0.2 4</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <pose>0 10 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name="Wall_West">
+        <collision name="Wall_23_Collision">
+          <geometry>
+            <box>
+              <size>20 0.2 4</size>
+            </box>
+          </geometry>
+          <pose>0 0 2 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="Wall_23_Visual">
+          <pose>0 0 2 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>20 0.2 4</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <pose>-10 0 0 0 0 -1.5708</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+			<link name="Ground_link">
+        <collision name="collision">
+					<pose>0 0 .05 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>20 20 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+					<pose>0 0 .05 0 -0 0</pose>
+          <cast_shadows>1</cast_shadows>
+          <geometry>
+            <box>
+              <size>20 20 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/RedBright</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <static>1</static>
+    </model>
+    <gui fullscreen="0">
+      <camera name="user_camera">
+        <pose>5.55028 19.2371 7.66404 0 0.296 -1.94838</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+  <light name="lightball_0" type="diffuse"><cast_shadows>true</cast_shadows><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.2 0.2 0.2 1</specular><attenuation><range>100</range><constant>0.7</constant><linear>0.01</linear><quadratic>0.001</quadratic></attenuation><direction>-0.5 0.1 -0.9</direction><pose>1.33647665894 1.417694647 2.78017778079 0 0 0</pose></light><include><uri>model://number4</uri><pose>-7.81962335217 -6.57171074614 0 0 0 2.93134811536</pose></include><include><uri>model://cafe_table</uri><pose>-8.43017502751 -4.41970291879 0 0 0 2.68307107181</pose></include><include><uri>model://polaris_ranger_xp900_no_roll_cage</uri><pose>-7.60080207113 -1.24934101599 0 0 0 1.96475770062</pose></include><include><uri>model://cafe_table</uri><pose>-7.89864954475 0.347349608234 0 0 0 2.77979582372</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-7.31440801814 4.17443678904 0 0 0 1.57272754572</pose></include><include><uri>model://cafe_table</uri><pose>-8.30773570263 8.53901504073 0 0 0 2.09944262937</pose></include><include><uri>model://table</uri><pose>-4.28046793783 -6.93826789765 0 0 0 0.290155543462</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-5.33092051097 -3.72204723766 0 0 0 2.41495637905</pose></include><include><uri>model://cardboard_box</uri><pose>-4.20937265253 -1.60794341025 0 0 0 1.57007285263</pose></include><include><uri>model://cafe_table</uri><pose>-4.16325440673 1.47368189857 0 0 0 0.76233447586</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-3.41226703092 4.95684346119 0 0 0 0.946689160695</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-5.14535334532 8.30187552868 0 0 0 2.90467075295</pose></include><include><uri>model://number9</uri><pose>-2.24364263556 -6.7199030289 0 0 0 1.81148407317</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-0.480387670477 -5.14296482294 0 0 0 2.78726759458</pose></include><include><uri>model://cafe_table</uri><pose>-0.778491319253 -2.12866214842 0 0 0 2.61449569855</pose></include><include><uri>model://cardboard_box</uri><pose>-2.21454555107 0.320584327534 0 0 0 2.32917402398</pose></include><include><uri>model://number6</uri><pose>-0.75841409635 5.60120096676 0 0 0 3.10563309151</pose></include><include><uri>model://robocup_3Dsim_goal</uri><pose>-2.45334692484 7.59939517641 0 0 0 2.654569687</pose></include><include><uri>model://cardboard_box</uri><pose>0.378237599278 -8.57112828235 0 0 0 0.0708892720357</pose></include><include><uri>model://cabinet</uri><pose>2.08178313545 -5.28247665934 0 0 0 0.465419649719</pose></include><include><uri>model://number2</uri><pose>1.65765035797 -1.8391375131 0 0 0 0.755667864176</pose></include><include><uri>model://number3</uri><pose>1.26970868806 2.52276012931 0 0 0 2.58183713373</pose></include><include><uri>model://polaris_ranger_xp900_no_roll_cage</uri><pose>1.0092423532 5.11130781176 0 0 0 1.7853834091</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>1.35193631324 6.50287335672 0 0 0 0.0202975606042</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>3.8530165606 -8.13254979275 0 0 0 0.265626704309</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>3.45498763905 -5.32170047574 0 0 0 2.46893283926</pose></include><include><uri>model://textured_shapes</uri><pose>3.59765752873 -2.29634086796 0 0 0 0.890594501754</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>3.95009673528 1.00101534439 0 0 0 2.82166066013</pose></include><include><uri>model://textured_shapes</uri><pose>5.69875044258 3.9692945267 0 0 0 0.231994752375</pose></include><include><uri>model://number2</uri><pose>4.36171333222 7.75491123311 0 0 0 1.97601527234</pose></include><include><uri>model://construction_cone</uri><pose>8.57583262535 -7.75499368754 0 0 0 0.88320405846</pose></include><include><uri>model://robocup_3Dsim_goal</uri><pose>6.39457435077 -5.52826137319 0 0 0 2.13227576244</pose></include><include><uri>model://cardboard_box</uri><pose>8.3641023518 -1.45051567731 0 0 0 1.43936050815</pose></include><include><uri>model://number9</uri><pose>6.78800960356 1.28286656965 0 0 0 0.0223446713771</pose></include><include><uri>model://number7</uri><pose>6.83194955231 3.96912291495 0 0 0 0.362645269419</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>6.54613319767 7.42014815355 0 0 0 2.32435416961</pose></include></world>
+</sdf>

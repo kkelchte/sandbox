@@ -1,0 +1,107 @@
+#!/usr/bin/env python
+import rospy
+# OpenCV2 for saving an image
+from cv_bridge import CvBridge, CvBridgeError
+import cv2
+from geometry_msgs.msg import Twist
+from sensor_msgs.msg import Image
+from std_msgs.msg import Empty
+import time
+import sys, select, tty, os, os.path
+import numpy as np
+from subprocess import call
+
+# Instantiate CvBridge
+bridge = CvBridge()
+
+flight_duration = 10 #amount of seconds drone should be flying
+delay_evaluation = 3
+success=False
+shuttingdown=False
+ready=False
+min_allowed_distance=0.5 #0.8
+start_time = 0
+saving_location = '/home/klaas/pilot_data/tmp'
+log_file = saving_location+'/log'
+pidfile="/home/klaas/sandbox_ws/src/sandbox/.pid"
+finished_pub=None
+
+
+def shutdown():
+  global log_file
+  finished_pub.publish(Empty())
+  #import pdb; pdb.set_trace() #print("publish finised")
+  f=open(log_file, 'a')
+  if success: f.write('success\n')
+  else: f.write('bump\n')
+  f.close()
+  time.sleep(1)
+  #kill process
+  if os.path.isfile(pidfile):
+    with open(pidfile, 'r') as pf:
+      pid=pf.read()[:-1]
+    call("kill -9 "+pid, shell=True)
+    
+    
+def ready_callback(msg):
+  global ready, start_time
+  if not ready:
+    ready=True
+    start_time=rospy.get_time()
+    print('evaluate start: ', start_time)
+
+def time_check():
+  global start_time, shuttingdown, success
+  if (int(rospy.get_time()-start_time)) > flight_duration:
+    print('success')
+    success=True
+    shuttingdown=True
+    shutdown()
+    
+def image_callback(msg):
+  global shuttingdown
+  if shuttingdown or not ready or (rospy.get_time()-start_time)<delay_evaluation: return
+  time_check()
+  try:
+    min_distance = np.nanmin(bridge.imgmsg_to_cv2(msg))
+  except CvBridgeError, e:
+    print(e)
+  else:
+    print('min distance: ', min_distance)
+    if min_distance < min_allowed_distance:
+      print('bump')
+      success=False
+      shuttingdown=True
+      shutdown()
+
+
+if __name__=="__main__":
+  ## create necessary directories
+  if rospy.has_param('pidfile'):
+    pidfile=rospy.get_param('pidfile')
+  if rospy.has_param('delay_evaluation'):
+    delay_evaluation=rospy.get_param('delay_evaluation')
+  if rospy.has_param('flight_duration'):
+    flight_duration=rospy.get_param('flight_duration')
+  if rospy.has_param('min_allowed_distance'):
+    min_allowed_distance=rospy.get_param('min_allowed_distance')
+  if rospy.has_param('saving_location'):
+    loc=rospy.get_param('saving_location')
+    if loc[0]=='/':
+      saving_location=loc
+    else:
+      saving_location='/home/klaas/pilot_data/'+loc
+  if rospy.has_param('log_file'):
+    log_file=rospy.get_param('log_file')
+  else:
+    log_file = saving_location+'/log'
+  print 'set logfile: ', log_file
+  rospy.init_node('evaluate', anonymous=True)
+  
+  rospy.Subscriber('/ardrone/kinect/depth/image_raw', Image, image_callback)
+  #rospy.Subscriber('/ardrone/imu', Imu, imu_callback)
+  rospy.Subscriber('/ready', Empty, ready_callback)
+  finished_pub = rospy.Publisher('/finished', Empty,  queue_size=10)
+  
+  # spin() simply keeps python from exiting until this node is stopped	
+  rospy.spin()

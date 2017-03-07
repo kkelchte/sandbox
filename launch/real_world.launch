@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<launch>
+  <!--<arg name="saving_location" default=""/>
+  <param name="saving_location" value="$(arg saving_location)"/>-->
+
+  <arg name="save_images" default="True"/>
+  <param name="save_images" value="$(arg save_images)"/>
+  <param name="real" value="True"/>
+  <!-- start evaluation-->
+  <node name="show_control" pkg="sandbox" type="show_control.py" output="screen"/>
+
+  
+  <!-- launch bebop node-->
+  <!-- include the nodelet launch file from bebop_driver -->
+  <arg name="namespace" default="bebop" />
+  <include file="$(find bebop_driver)/launch/bebop_nodelet.launch">
+    <arg name="namespace" value="$(arg namespace)" />
+  </include>
+  <!-- use the same nodelet manager and namespace, then load image_view nodelet -->
+	<!--<param name='PictureSettingsVideoStabilizationModeMode' value='3'/>
+  <group ns="$(arg namespace)">
+     <node pkg="nodelet" type="nodelet" name="bebop_image_view_nodelet"
+        args="load image_view/image bebop_nodelet_manager">
+        <remap from="image" to="image_raw" />
+      </node>
+  </group>-->
+
+  <!-- launch joystick control -->
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="joy_config" default="ps3" />
+  <arg name="teleop_config" default="$(find sandbox)/parameters/$(arg joy_config).yaml" />
+  <group ns="$(arg namespace)">
+    <rosparam file="$(arg teleop_config)" command="load" />
+    <node pkg="joy" type="joy_node" name="joy_node">
+      <param name="dev" value="$(arg joy_dev)" />
+      <param name="deadzone" value="0.2" />
+      <param name="autorepeat_rate" value="20" />
+    </node>
+    <node pkg="joy_teleop" type="joy_teleop.py" name="joy_teleop">
+    </node>
+  </group>  
+</launch>

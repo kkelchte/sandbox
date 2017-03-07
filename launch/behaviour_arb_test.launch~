@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="current_world" default="/oa_challenges_train/0055.world"/>
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched-->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  <!--use line for spawning world from .dae mesh in gz model folder-->
+  <arg name="world_name" value="$(find autopilot)/worlds/$(arg current_world)"/>     
+  </include>
+  <param name='world_name' value="$(arg current_world)"/>
+
+  <!-- Spawn simulated quadrotor uav -->
+  <include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
+    <arg name="model" value="$(find cvg_sim_gazebo)/urdf/quadrotor_sensors.urdf.xacro"/> 
+    <arg name="y" value="-19"/><!--adjust spawning position of drone-->
+  </include>
+
+  <!-- start saving images in sloc saving location-->
+  <arg name="sloc" default="/remote_images/set_online/"/>
+  <param name="saving_location" value="$(arg sloc)"/>
+  <!-- set log location-->
+  <arg name="sloc_log" default="/home/jay/autopilot_ws/src/autopilot/log.txt"/>
+  <param name="saving_location_log" value="$(arg sloc_log)"/>
+
+  <arg name="goal_angle" default="4.71"/>
+  <param name="goal_angle" value="$(arg goal_angle)" type="double"/> 
+
+  <arg name="MODE" default="0"/>
+  <param name="MODE" value="$(arg MODE)"/> 
+  <arg name="last_control_output" default="0"/>
+  <param name="last_control_output" value="$(arg last_control_output)"/> 
+  <param name="dagger_running" value="false"/> 
+
+  <param name="use_depth_estim" value="true"/>
+  <param name="depth_estimation_running" value="true" />
+  <arg name="port" default="55560"/>
+  <param name="depth_TCP_port" value="$(arg port)" />
+  
+  <!-- Spawn keyboard control -->
+  <!--<node name="teleop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>-->
+ 
+  <!-- start saving images-->
+  <node name="save_labelled_images_depth_cont" pkg="autopilot" type="save_labelled_images_depth_cont" output="log" />
+  <!-- start behavior arbitration-->
+  <node name="teleop_autopilot_behaviour_arbitration" pkg="autopilot" type="teleop_autopilot_behaviour_arbitration" output="log" />
+  <!-- start online control node-->
+  <node name="online_control_cont" pkg="autopilot" type="online_control_cont" output="log" />
+  <node name="teleop_autopilot_evaluation" pkg="autopilot" type="teleop_autopilot_evaluation" output="screen"/>
+  
+
+
+  
+  <node name="depth_estimator" pkg="autopilot" type="depth_estimator" />   
+  </launch>

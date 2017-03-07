@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='us-ascii'?>
+<sdf version="1.4">
+  <world name="default">
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <gravity>0 0 -9.8</gravity>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <model name="Surrounding">
+      <static>1</static>
+			<link name="Ceiling">
+        <collision name="Ceiling_Collision">
+          <geometry>
+            <box>
+              <size>40 40 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="Ceiling_Visual">
+          <geometry>
+            <box>
+              <size>40 40 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/GreyTransparent</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 4.05 0 0 0</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name="Wall_South">
+        <collision name="Wall_South_Collision">
+          <geometry>
+            <box>
+              <size>40 0 4</size>
+            </box>
+          </geometry>
+          <pose>0 0 2 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="Wall_South_Visual">
+          <pose>0 0 2 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>40 0 4</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/PioneerBody</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <pose>0 -20 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name="Wall_East">
+        <collision name="Wall_21_Collision">
+          <geometry>
+            <box>
+              <size>40 0 4</size>
+            </box>
+          </geometry>
+          <pose>0 0 2 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="Wall_21_Visual">
+          <pose>0 0 2 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>40 0 4</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Turquoise</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <pose>20 0 0 0 -0 1.5708</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name="Wall_North">
+        <collision name="Wall_22_Collision">
+          <geometry>
+            <box>
+              <size>40 0.2 4</size>
+            </box>
+          </geometry>
+          <pose>0 0 2 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="Wall_22_Visual">
+          <pose>0 0 2 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>40 0.2 4</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/WhiteGlow</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <pose>0 20 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name="Wall_West">
+        <collision name="Wall_23_Collision">
+          <geometry>
+            <box>
+              <size>40 0.2 4</size>
+            </box>
+          </geometry>
+          <pose>0 0 2 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="Wall_23_Visual">
+          <pose>0 0 2 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>40 0.2 4</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/JointAnchor</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <pose>-20 0 0 0 0 -1.5708</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+			<link name="Ground_link">
+        <collision name="collision">
+					<pose>0 0 .05 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>40 40 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce />
+            <friction>
+              <ode />
+            </friction>
+            <contact>
+              <ode />
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+					<pose>0 0 .05 0 -0 0</pose>
+          <cast_shadows>1</cast_shadows>
+          <geometry>
+            <box>
+              <size>40 40 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/White</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <static>1</static>
+    </model>
+    <gui fullscreen="0">
+      <camera name="user_camera">
+        <pose>5.55028 19.2371 7.66404 0 0.296 -1.94838</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+  <light name="lightball_0" type="diffuse"><cast_shadows>true</cast_shadows><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.2 0.2 0.2 1</specular><attenuation><range>100</range><constant>0.7</constant><linear>0.01</linear><quadratic>0.001</quadratic></attenuation><direction>-0.5 0.1 -0.9</direction><pose>6.76087864993 -18.9951185447 2.38137912667 0 0 0</pose></light><light name="lightball_1" type="diffuse"><cast_shadows>true</cast_shadows><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.2 0.2 0.2 1</specular><attenuation><range>100</range><constant>0.7</constant><linear>0.01</linear><quadratic>0.001</quadratic></attenuation><direction>-0.5 0.1 -0.9</direction><pose>-0.481071658987 14.5350861725 2.51685513558 0 0 0</pose></light><light name="lightball_2" type="diffuse"><cast_shadows>true</cast_shadows><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.2 0.2 0.2 1</specular><attenuation><range>100</range><constant>0.7</constant><linear>0.01</linear><quadratic>0.001</quadratic></attenuation><direction>-0.5 0.1 -0.9</direction><pose>-19.4892894938 15.2338686643 2.36268678214 0 0 0</pose></light><light name="lightball_3" type="diffuse"><cast_shadows>true</cast_shadows><diffuse>0.8 0.8 0.8 1</diffuse><specular>0.2 0.2 0.2 1</specular><attenuation><range>100</range><constant>0.7</constant><linear>0.01</linear><quadratic>0.001</quadratic></attenuation><direction>-0.5 0.1 -0.9</direction><pose>-5.30811436231 -2.27758125033 3.3318938232 0 0 0</pose></light><include><uri>model://person_standing</uri><pose>-17.5260903692 -17.1836787826 0 0 0 1.49119491038</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-17.2523965592 -15.3944932513 0 0 0 2.14812587796</pose></include><include><uri>model://number1</uri><pose>-16.3761576258 -11.2403193511 0 0 0 1.35948738438</pose></include><include><uri>model://number4</uri><pose>-17.3654754644 -9.01119812908 0 0 0 0.231334024999</pose></include><include><uri>model://cabinet</uri><pose>-18.6918606616 -5.91768797878 0 0 0 0.762460534169</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-18.2260982177 -1.54495719941 0 0 0 1.08901760401</pose></include><include><uri>model://number9</uri><pose>-17.8411476984 0.203722303761 0 0 0 0.897854167165</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-17.0706908711 4.19036663071 0 0 0 1.03251400336</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-16.8988937835 6.0572154282 0 0 0 1.1275114501</pose></include><include><uri>model://cafe_table</uri><pose>-16.8796222837 10.0268382173 0 0 0 1.02287729976</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-16.3077468084 12.177151584 0 0 0 3.11669852311</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-17.0871935909 14.6384068336 0 0 0 1.78648510577</pose></include><include><uri>model://polaris_ranger_xp900_no_roll_cage</uri><pose>-16.686356578 18.2543490095 0 0 0 0.501757709841</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-14.9758669728 -16.7219731572 0 0 0 0.71886984102</pose></include><include><uri>model://bookshelf</uri><pose>-13.5643433355 -15.4612721603 0 0 0 2.88245429768</pose></include><include><uri>model://cabinet</uri><pose>-14.197258181 -11.0225358488 0 0 0 0.800442806536</pose></include><include><uri>model://table</uri><pose>-14.6823277028 -8.14200078212 0 0 0 2.81898514047</pose></include><include><uri>model://bookshelf</uri><pose>-15.3275885942 -4.77358730191 0 0 0 2.21131836281</pose></include><include><uri>model://number8</uri><pose>-13.4783317204 -1.87336145741 0 0 0 1.25416678519</pose></include><include><uri>model://person_standing</uri><pose>-14.5076308094 1.41154456207 0 0 0 3.05737236648</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-15.5615062612 3.57812501214 0 0 0 3.00851028544</pose></include><include><uri>model://number1</uri><pose>-14.9458813923 5.59013197035 0 0 0 2.06402921862</pose></include><include><uri>model://cafe_table</uri><pose>-15.2699762616 8.45741615094 0 0 0 0.110712534712</pose></include><include><uri>model://polaris_ranger_xp900</uri><pose>-13.744245276 11.7702060608 0 0 0 1.82113572156</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-14.8216936206 15.0782166293 0 0 0 0.265267990477</pose></include><include><uri>model://number7</uri><pose>-15.2667594205 18.0718808354 0 0 0 2.87782452158</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-11.4441889653 -16.7346398575 0 0 0 1.4152565969</pose></include><include><uri>model://cabinet</uri><pose>-11.5967466429 -14.2860775558 0 0 0 0.725535176157</pose></include><include><uri>model://bookshelf</uri><pose>-12.6632090173 -11.634819605 0 0 0 0.78556165146</pose></include><include><uri>model://cardboard_box</uri><pose>-11.7730675452 -8.40226265413 0 0 0 2.88986828523</pose></include><include><uri>model://table</uri><pose>-12.2496446266 -6.4789512023 0 0 0 1.46139476803</pose></include><include><uri>model://cafe_table</uri><pose>-11.8846896101 -1.38334056781 0 0 0 1.66805140411</pose></include><include><uri>model://cafe_table</uri><pose>-11.6357852477 -0.56456300442 0 0 0 1.06213424633</pose></include><include><uri>model://cardboard_box</uri><pose>-12.1236882193 4.47200862117 0 0 0 1.91345173301</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-12.6706184169 6.3460153267 0 0 0 0.134743652732</pose></include><include><uri>model://cardboard_box</uri><pose>-11.6088044164 9.48844499004 0 0 0 0.968009716055</pose></include><include><uri>model://number8</uri><pose>-10.5715519944 12.7983355424 0 0 0 0.417796721208</pose></include><include><uri>model://robocup_3Dsim_goal</uri><pose>-11.7191537574 14.5822540677 0 0 0 0.892420900928</pose></include><include><uri>model://cabinet</uri><pose>-12.6750703839 17.8230169766 0 0 0 2.63792006613</pose></include><include><uri>model://cafe_table</uri><pose>-8.95364269067 -16.9379103285 0 0 0 0.978637173914</pose></include><include><uri>model://polaris_ranger_xp900_no_roll_cage</uri><pose>-9.43757839553 -14.3702927214 0 0 0 2.21619090883</pose></include><include><uri>model://number9</uri><pose>-8.96860086842 -12.079294275 0 0 0 0.163992046532</pose></include><include><uri>model://number6</uri><pose>-8.16756137505 -9.4323719792 0 0 0 2.15485414944</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-7.93825270549 -4.94185028539 0 0 0 2.07832158619</pose></include><include><uri>model://polaris_ranger_ev</uri><pose>-8.75646130902 -2.13500521797 0 0 0 0.0414632480326</pose></include><include><uri>model://number2</uri><pose>-8.59890995536 0.0685988437371 0 0 0 1.94333405305</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-8.87026493004 3.86790194894 0 0 0 2.31778892041</pose></include><include><uri>model://number5</uri><pose>-8.24992430664 5.3301347561 0 0 0 1.95409632171</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-7.59184966306 8.60756392846 0 0 0 1.12950856825</pose></include><include><uri>model://number7</uri><pose>-8.6033447145 13.5508234519 0 0 0 0.0721219594985</pose></include><include><uri>model://number9</uri><pose>-7.49365519647 15.0866179433 0 0 0 2.80086708664</pose></include><include><uri>model://cabinet</uri><pose>-8.6312335269 18.1649524385 0 0 0 0.874234000997</pose></include><include><uri>model://number9</uri><pose>-5.73635712523 -16.8655179211 0 0 0 2.98732157472</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-4.60536922647 -15.3371480266 0 0 0 0.680553175403</pose></include><include><uri>model://number6</uri><pose>-6.14118798288 -11.806280815 0 0 0 2.39628441348</pose></include><include><uri>model://first_2015_trash_can</uri><pose>-4.88938198597 -7.68167065776 0 0 0 0.861113602195</pose></include><include><uri>model://cabinet</uri><pose>-5.56132703914 -4.47112713603 0 0 0 0.0252490917092</pose></include><include><uri>model://first_2015_trash_can</uri><pose>-6.19995843684 -1.60631877524 0 0 0 2.98711172956</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-6.39696818231 0.12719762052 0 0 0 0.685240423022</pose></include><include><uri>model://number1</uri><pose>-5.53485317729 2.30331663124 0 0 0 0.373926088786</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-5.37411419797 5.47092025879 0 0 0 2.39189075396</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-5.86466951104 10.3874783462 0 0 0 0.14387672736</pose></include><include><uri>model://cafe_table</uri><pose>-6.12726640637 11.3578198718 0 0 0 1.9152836876</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-5.78045265213 14.4615978816 0 0 0 2.81477970656</pose></include><include><uri>model://person_standing</uri><pose>-4.47032893293 19.1760987997 0 0 0 2.86998673199</pose></include><include><uri>model://first_2015_trash_can</uri><pose>-1.35453199035 -17.0913248621 0 0 0 0.611411146779</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-2.98663009501 -14.469234496 0 0 0 0.142076913822</pose></include><include><uri>model://person_standing</uri><pose>-2.26838418092 -11.8916732486 0 0 0 2.75893283032</pose></include><include><uri>model://number6</uri><pose>-2.79590611038 -9.212048858 0 0 0 1.46004201642</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-3.27820138147 -5.89688024033 0 0 0 2.74027346829</pose></include><include><uri>model://number9</uri><pose>-1.76895768701 -3.30807963728 0 0 0 1.49547614123</pose></include><include><uri>model://bookshelf</uri><pose>-3.22246129678 1.50495497233 0 0 0 0.812124250191</pose></include><include><uri>model://cafe_table</uri><pose>-3.45526463841 3.21386849776 0 0 0 2.18494713738</pose></include><include><uri>model://polaris_ranger_ev</uri><pose>-2.33834742231 7.26685267184 0 0 0 1.78655773896</pose></include><include><uri>model://cardboard_box</uri><pose>-1.71933019226 8.82987028036 0 0 0 0.876035534083</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-3.20336211818 12.6323297323 0 0 0 2.1442023067</pose></include><include><uri>model://cabinet</uri><pose>-1.49923332374 15.9871829616 0 0 0 3.06529791016</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-2.90503884727 18.3282505677 0 0 0 2.37193588112</pose></include><include><uri>model://number5</uri><pose>0.775975933128 -16.7118759189 0 0 0 0.818900594622</pose></include><include><uri>model://cafe_table</uri><pose>0.947681103404 -14.2942838683 0 0 0 2.73604560653</pose></include><include><uri>model://number2</uri><pose>1.25855794068 -11.3362033331 0 0 0 0.114635146902</pose></include><include><uri>model://cabinet</uri><pose>1.34374855733 -7.58083425044 0 0 0 2.54944230241</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-0.26218617205 -5.51342861706 0 0 0 0.705877844299</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>0.193495497332 -1.68577121406 0 0 0 0.486719015755</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-0.259015276133 1.03065662588 0 0 0 1.46272469088</pose></include><include><uri>model://polaris_ranger_xp900_no_roll_cage</uri><pose>1.49137101863 2.88145769098 0 0 0 0.314658562627</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>-0.527968265992 7.56768030942 0 0 0 1.17351711942</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>-0.258478842992 9.02878782775 0 0 0 2.14431316682</pose></include><include><uri>model://cafe_table</uri><pose>-0.300260005739 11.3362782967 0 0 0 2.89757215547</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>0.531880583456 14.7525016917 0 0 0 1.03954722384</pose></include><include><uri>model://number6</uri><pose>1.06993193115 17.7174907747 0 0 0 2.9791939271</pose></include><include><uri>model://number9</uri><pose>4.2482189786 -18.0563506938 0 0 0 2.97817823816</pose></include><include><uri>model://cardboard_box</uri><pose>2.72192886813 -14.5804936589 0 0 0 1.813556153</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>2.35087250068 -12.6028733188 0 0 0 0.0348747354673</pose></include><include><uri>model://number8</uri><pose>3.50450353232 -8.72436276316 0 0 0 1.96693871717</pose></include><include><uri>model://polaris_ranger_xp900</uri><pose>4.18364575127 -6.67004261559 0 0 0 1.09922051493</pose></include><include><uri>model://bookshelf</uri><pose>2.52529137917 -3.54848182026 0 0 0 1.64300439597</pose></include><include><uri>model://robocup_3Dsim_goal</uri><pose>3.50287390354 -0.698374848542 0 0 0 1.00242365843</pose></include><include><uri>model://number8</uri><pose>3.38718435583 3.93306850806 0 0 0 2.91152196778</pose></include><include><uri>model://first_2015_trash_can</uri><pose>2.55127050672 6.21480094258 0 0 0 0.510228999376</pose></include><include><uri>model://number3</uri><pose>4.46504436844 8.92160481738 0 0 0 2.64455954926</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>2.3468196946 13.1521019157 0 0 0 2.73789827013</pose></include><include><uri>model://table</uri><pose>3.90587826306 16.2884690217 0 0 0 1.93246534198</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>4.28270643912 17.578929556 0 0 0 0.304249664571</pose></include><include><uri>model://number3</uri><pose>7.30857192427 -17.7454914649 0 0 0 0.986283946226</pose></include><include><uri>model://number3</uri><pose>5.73805471192 -15.3165235387 0 0 0 2.96528328288</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>6.50895180377 -12.2123647125 0 0 0 2.90297398557</pose></include><include><uri>model://number7</uri><pose>5.78666461265 -9.4065824368 0 0 0 0.190864305434</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>5.38471024257 -5.2495599134 0 0 0 0.594634275128</pose></include><include><uri>model://number6</uri><pose>5.44389279915 -2.96781667074 0 0 0 2.16408397087</pose></include><include><uri>model://first_2015_trash_can</uri><pose>6.62808053498 0.850036966348 0 0 0 2.32350284132</pose></include><include><uri>model://cardboard_box</uri><pose>7.56431825032 4.62725426154 0 0 0 2.34891184203</pose></include><include><uri>model://number4</uri><pose>7.49716939757 5.95922524986 0 0 0 0.623816259917</pose></include><include><uri>model://number8</uri><pose>5.74352987616 8.86505781465 0 0 0 0.681336289612</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>7.26574991563 11.803229618 0 0 0 1.20788590232</pose></include><include><uri>model://number5</uri><pose>6.02800646864 15.077442794 0 0 0 2.2262971057</pose></include><include><uri>model://cardboard_box</uri><pose>6.89128095464 18.3036738682 0 0 0 0.444967470682</pose></include><include><uri>model://number3</uri><pose>8.44765517133 -16.7465591475 0 0 0 1.32673590132</pose></include><include><uri>model://cabinet</uri><pose>9.09257748179 -14.2382402859 0 0 0 2.95448341581</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>9.77353613525 -11.7214441829 0 0 0 2.80108848002</pose></include><include><uri>model://first_2015_trash_can</uri><pose>9.07972006651 -9.39551931924 0 0 0 1.24918500725</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>9.45511662184 -5.93645280624 0 0 0 2.35167430165</pose></include><include><uri>model://number7</uri><pose>8.9084897997 -2.49124241512 0 0 0 1.1370168599</pose></include><include><uri>model://number8</uri><pose>9.97906517971 0.996589442672 0 0 0 1.1598145296</pose></include><include><uri>model://polaris_ranger_xp900_no_roll_cage</uri><pose>8.94050710409 3.84661430785 0 0 0 0.866964389541</pose></include><include><uri>model://cabinet</uri><pose>8.4721245015 7.2689025084 0 0 0 0.678425636121</pose></include><include><uri>model://polaris_ranger_ev</uri><pose>9.03358170067 10.0925628306 0 0 0 1.09539906215</pose></include><include><uri>model://first_2015_trash_can</uri><pose>8.73528022084 12.1721196211 0 0 0 1.68079928224</pose></include><include><uri>model://cafe_table</uri><pose>9.14370177988 15.6423408233 0 0 0 2.4777994152</pose></include><include><uri>model://table</uri><pose>10.2329540409 17.4476448978 0 0 0 1.16886468045</pose></include><include><uri>model://number8</uri><pose>13.5363167951 -17.4906472926 0 0 0 1.86709309801</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>11.6739785886 -14.0066024675 0 0 0 1.71339618662</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>11.6819581815 -11.7388550205 0 0 0 2.15371350756</pose></include><include><uri>model://number7</uri><pose>13.3084606769 -7.63755244353 0 0 0 0.881993643798</pose></include><include><uri>model://number6</uri><pose>13.2643155917 -4.85499990548 0 0 0 1.48158474451</pose></include><include><uri>model://number2</uri><pose>12.1208766321 -2.766455074 0 0 0 2.61130714091</pose></include><include><uri>model://person_standing</uri><pose>13.4528682785 1.12526857228 0 0 0 2.69427487123</pose></include><include><uri>model://polaris_ranger_ev</uri><pose>12.1186700895 3.80002315539 0 0 0 2.56625329096</pose></include><include><uri>model://cabinet</uri><pose>11.5002029121 5.97572730819 0 0 0 2.51282340918</pose></include><include><uri>model://number4</uri><pose>12.1530610559 9.71106279332 0 0 0 2.07801127235</pose></include><include><uri>model://cafe_table</uri><pose>11.7402219701 13.4984349826 0 0 0 2.40148925744</pose></include><include><uri>model://number7</uri><pose>12.9351036038 14.5193809918 0 0 0 2.10146418424</pose></include><include><uri>model://number9</uri><pose>13.4949169294 19.0317222287 0 0 0 1.43486313888</pose></include><include><uri>model://bookshelf</uri><pose>14.480112427 -18.4059062251 0 0 0 1.1110747363</pose></include><include><uri>model://number9</uri><pose>15.4073837132 -14.4957455128 0 0 0 2.05197420754</pose></include><include><uri>model://number8</uri><pose>14.3495732211 -12.3371544054 0 0 0 2.75417283778</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>14.6692007122 -8.34941993814 0 0 0 2.09952845988</pose></include><include><uri>model://number8</uri><pose>15.703734372 -5.76115562431 0 0 0 2.33612311787</pose></include><include><uri>model://number9</uri><pose>15.2748692991 -1.9601685064 0 0 0 0.471695245067</pose></include><include><uri>model://cafe_table</uri><pose>16.3227924222 -0.2498751437 0 0 0 0.0600857058529</pose></include><include><uri>model://number6</uri><pose>15.0395007516 2.65804025899 0 0 0 0.695484281407</pose></include><include><uri>model://number2</uri><pose>16.0901222596 6.01572047708 0 0 0 0.573166541321</pose></include><include><uri>model://number5</uri><pose>15.1431290022 8.51803471442 0 0 0 2.33205420957</pose></include><include><uri>model://construction_cone</uri><pose>15.5948622776 12.3745117273 0 0 0 0.0238271718999</pose></include><include><uri>model://textured_shapes</uri><pose>15.4506405744 16.5586755868 0 0 0 0.525588011137</pose></include><include><uri>model://construction_cone</uri><pose>14.5103376705 18.6696920104 0 0 0 1.3595898594</pose></include><include><uri>model://cardboard_box</uri><pose>17.6863634307 -17.5063308893 0 0 0 1.80040005499</pose></include><include><uri>model://polaris_ranger_xp900_no_roll_cage</uri><pose>18.9480712366 -14.8282373747 0 0 0 0.879680878609</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>19.61361797 -10.916534188 0 0 0 0.0725730637437</pose></include><include><uri>model://cardboard_box</uri><pose>17.9363183122 -7.5679679734 0 0 0 2.96979866847</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>17.5989453005 -6.3195038942 0 0 0 0.287988909983</pose></include><include><uri>model://nist_maze_wall_240</uri><pose>17.5389961035 -2.76116193133 0 0 0 0.992580365058</pose></include><include><uri>model://cardboard_box</uri><pose>19.147419973 0.0109881985129 0 0 0 1.39737497636</pose></include><include><uri>model://number1</uri><pose>17.7378882163 2.91762048334 0 0 0 0.0920450842365</pose></include><include><uri>model://bookshelf</uri><pose>18.8615579367 6.70123666333 0 0 0 0.179116848007</pose></include><include><uri>model://polaris_ranger_xp900</uri><pose>19.5789547735 10.2280363858 0 0 0 0.706908996519</pose></include><include><uri>model://number6</uri><pose>18.1326434822 11.4310025285 0 0 0 0.534020028392</pose></include><include><uri>model://nist_elevated_floor_120</uri><pose>18.4577131187 14.8778369653 0 0 0 2.96689908527</pose></include><include><uri>model://cardboard_box</uri><pose>19.6720599228 19.422898333 0 0 0 1.73338556199</pose></include></world>
+</sdf>

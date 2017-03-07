@@ -1,0 +1,76 @@
+#!/bin/bash
+######################################
+# Set environment back to python 2.7
+export PYTHONPATH=:/home/klaas/sandbox_ws/devel/lib/python3/dist-packages:/usr/lib/python2.7:/home/klaas/sandbox_ws/devel/lib/python2.7/dist-packages:/home/klaas/bebop_ws/devel/lib/python2.7/dist-packages:/opt/ros/indigo/lib/python2.7/dist-packages
+export LD_LIBRARY_PATH=:/home/klaas/sandbox_ws/devel/lib:/home/klaas/bebop_ws/devel/lib:/opt/ros/indigo/lib
+export PATH=/opt/ros/indigo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+#printenv
+######################################
+# Save parameters received from python
+LAUNCHFILE="simulation_supervised.launch" #"$1"
+NUMBER_OF_FLIGHTS="$1"
+RENDER="true" #"$2"
+WORLD_DIR="sandboxes"
+#POS_OPTIONS=("-9.5" "-6.5" "-3.5" "-0.5" "2.5" "5.5" "8.5")
+POS_OPTIONS=( "-6.5" "-3.5" "-0.5" "2.5" "5.5" )
+echo "RENDER: $RENDER"
+STUCK=false
+RANDOM=125 #seed the random sequence
+roscore &
+pidros=$!
+sleep 2
+echo "ros started"
+for i in $(seq 0 $((NUMBER_OF_FLIGHTS-1)));
+do	
+  echo "Started with run: $i"
+  NUM=$(printf %010d $((i%1000)))
+  world_name=$(printf %s/%s%s $WORLD_DIR $NUM ".world")
+  x=${POS_OPTIONS[$RANDOM % ${#POS_OPTIONS[@]} ]}
+	y=${POS_OPTIONS[$RANDOM % ${#POS_OPTIONS[@]} ]}		  
+  #x=1.5
+  #y=-3
+  Y=$(awk "BEGIN {print 2*3.14*$((RANDOM%=100))/100}")
+  #Y=1.57	
+  #printf $Y
+	COMMAND="roslaunch sandbox $LAUNCHFILE Yspawned:=$Y x:=$x y:=$y \
+           current_world:=$world_name"
+	echo $COMMAND
+  START=$(date +%s)     
+  xterm -hold -e $COMMAND &
+  pidlaunch=$!
+  echo $pidlaunch > "/home/klaas/sandbox_ws/src/sandbox/.pid/rospid"
+	echo "xterm started: $pidlaunch"
+	if [ $RENDER = true ] ;
+	then 
+		echo "start client"
+		gzclient &
+		#pidclient=$!
+	fi
+  while kill -0 $pidlaunch; 
+  do 
+    sleep 0.1
+    END=$(date +%s)
+    DIFF=$(( $END - $START ))
+    #echo $DIFF
+    if [ $DIFF -gt 200 ] ;
+    then
+      echo "Something went wrong so killed ROS."
+ 			kill -9 $pidlaunch
+      #echo "kill ros:"
+      #killall -9 roscore
+      #killall -9 rosmaster
+      #killall rosout
+      #kill -9 $pidros
+      #echo "restart ros:"
+      #roscore &
+      #pidros=$!
+    fi
+  done
+	if [ $RENDER = true ] ;
+	then
+		echo "kill gzclient"
+		killall -9 gzclient
+	fi
+	sleep 10
+done
+#fi

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<launch>
+  <!--<arg name="saving_location" default=""/>
+  <param name="saving_location" value="$(arg saving_location)"/>-->
+  <rosparam command="load" file="$(find sandbox)/parameters/online_param.yaml" />
+  <arg name="log_file" default="/home/klaas/tmp/log"/>
+  <param name="log_file" value="$(arg log_file)"/>
+  
+  <arg name="save_images" default="True"/>
+  <param name="save_images" value="$(arg save_images)"/>
+
+  <!-- start evaluation-->
+  <node name="show_control" pkg="sandbox" type="show_control.py" output="screen"/>
+
+  <!-- launch joystick control -->
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="joy_config" default="ps3" />
+  <arg name="teleop_config" default="$(find sandbox)/parameters/$(arg joy_config).yaml" />
+  <group ns="ardrone">
+  <rosparam file="$(arg teleop_config)" command="load" />
+  <node pkg="joy" type="joy_node" name="joy_node">
+    <param name="dev" value="$(arg joy_dev)" />
+    <param name="deadzone" value="0.2" />
+    <param name="autorepeat_rate" value="20" />
+  </node>
+  <node pkg="joy_teleop" type="joy_teleop.py" name="joy_teleop">  
+  </node>
+  </group>
+  <arg name="current_world" default="sandboxes/0000000000.world"/>
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched-->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  <!--use line for spawning world from .dae mesh in gz model folder-->
+  <arg name="world_name" value="$(find sandbox)/worlds/$(arg current_world)"/>
+  <param name="ba_parameters_path" value="/home/klaas/sandbox_ws/src/sandbox/parameters/behavior_arbitration.xml"/>
+	<arg name="gui" default="false"/>
+  <arg name="headless" default="true"/> 
+  </include>
+  <param name='world_name' value="$(arg current_world)"/>
+	
+	<!--drone flies in +x or -x direction-->
+  <arg name="x" default="0"/>
+  <arg name="y" default="0"/>
+  <arg name="Yspawned" default="1.57"/>
+    
+	<!-- Spawn simulated quadrotor uav -->
+  <include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
+		<!--adjust spawning position of drone-->
+    <arg name="x" value="$(arg x)"/>
+    <arg name="y" value="$(arg y)"/>
+    <arg name="Y" value="$(arg Yspawned)"/>
+	  <arg name="model" value="$(find cvg_sim_gazebo)/urdf/quadrotor_sensors.urdf.xacro"/>		
+  </include>
+	
+	<arg name="supervision" default="true"/> 
+  <param name="supervision" value="$(arg supervision)"/>
+
+	<!-- start behavior arbitration
+  <node name="teleop_autopilot_behaviour_arbitration" pkg="sandbox" type="teleop_autopilot_behaviour_arbitration" output="log" />-->
+	
+  
+</launch>
