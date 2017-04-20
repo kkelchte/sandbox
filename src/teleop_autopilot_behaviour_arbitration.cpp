@@ -14,6 +14,9 @@
 
 #include <std_msgs/Empty.h>
 
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time used for seeding rand*/
+
 using namespace std;
 
 //Check depth and provide target controls on supervised_vel node
@@ -193,11 +196,11 @@ geometry_msgs::Twist get_twist() {
 	    // DPITCH = std::max(-1.0f, std::min(DPITCH, 1.0f));
 	    if(!discretized_twist) {
 		    // twist.linear.x = 1 - abs(DYAW);
-		    twist.linear.x = 0.8;
-		    twist.linear.y = 0.0;
-		    twist.linear.z = DPITCH + adjust_height;
-		    twist.angular.x = 0.0;
-		    twist.angular.y = 0.0;
+		    twist.linear.x = 0.4 ;//+ (float) (rand() % 200)/200.; //in the range of 0.8 to 1.8 //speed
+		    twist.linear.y = 0.0 ;//+ (float) (rand() % 200 -100)/400.;// in the range -0.25,+0.25 0.0; //strafing
+		    twist.linear.z = DPITCH ;//+ adjust_height + (float) (rand() % 200 -100)/400.;// in the range -0.25,+0.25
+		    twist.angular.x = 0.0 ;//+ (float) (rand() % 200 -100)/500.;// in the range -0.2,+0.2 0.0; //strafing
+		    twist.angular.y = 0.0 ;//+ (float) (rand() % 200 -100)/500.;// in the range -0.2,+0.2 0.0; //speed
 		    twist.angular.z = DYAW;
 		    counter=counter+1;
 		    return twist;
@@ -228,6 +231,9 @@ geometry_msgs::Twist get_twist() {
 
 int main(int argc, char** argv)
 {
+	/* initialize random seed: */
+  	srand (time(NULL));
+	
 	ros::init(argc, argv, "teleop_autopilot", ros::init_options::AnonymousName);
 	ros::NodeHandle nh;
 	image_transport::ImageTransport it(nh);

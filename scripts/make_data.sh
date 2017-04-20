@@ -1,10 +1,10 @@
 LAUNCHFILE="test.launch"
-WORLD_DIR="sandboxes_big"
+WORLD_DIR="sandboxes_depth"
 WORLDFILES="/home/klaas/sandbox_ws/src/sandbox/worlds/$WORLD_DIR"
 #DATA_DIR="/media/klaas/d4afcfac-17c9-40cd-876f-fc814f5458c4/home/klaas_14/pilot_data"
 DATA_DIR="/home/klaas/pilot_data"
-NUMBER_OF_WORLDS=99
 NUMBER_OF_FLIGHTS=10
+NUMBER_OF_WORLDS=100
 START_I=0
 GENERATE_NEW_WORLDS=false
 POS_OPTIONS=( "-15.5" "-12.5" "-9.5" "-6.5" "-3.5" "-0.5" "2.5" "5.5" "8.5" "11.5" "14.5" "17.5")
@@ -13,7 +13,7 @@ STUCK=false
 SET_NAME="$1"
 if [ -z "$SET_NAME" ]
 then
-	echo "No save location"
+	echo "Give name of saving location"
 	exit
 fi
 convertsecs() {

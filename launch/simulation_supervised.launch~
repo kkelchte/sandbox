@@ -4,15 +4,17 @@
 	<rosparam command="load" file="$(find sandbox)/parameters/online_param.yaml" />
   <arg name="log_file" default="/home/klaas/tmp/log"/>
   <param name="log_file" value="$(arg log_file)"/>
+  <arg name="eva_dis" default="-1"/>
+  <param name="eva_dis" value="$(arg eva_dis)"/>
   <!-- <arg name="saving_location" default="/home/klaas/tmp"/>
   <param name="saving_location" value="$(arg saving_location)"/>-->
-  <arg name="current_world" default="bended_corridor.world"/>
+  <arg name="current_world" default="tmp.world"/>
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched-->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
   <!--use line for spawning world from .dae mesh in gz model folder-->
   <arg name="world_name" value="$(find sandbox)/worlds/$(arg current_world)"/>
   <param name="ba_parameters_path" value="/home/klaas/sandbox_ws/src/sandbox/parameters/behavior_arbitration.xml"/>
-	<arg name="gui" default="true"/>
+	<arg name="gui" default="false"/>
   <arg name="headless" default="false"/> 
   </include>
   <param name='world_name' value="$(arg current_world)"/>

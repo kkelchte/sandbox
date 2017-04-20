@@ -40,11 +40,16 @@ def shutdown():
   global log_file
   finished_pub.publish(Empty())
   #import pdb; pdb.set_trace() #print("publish finised")
-  f=open(log_file, 'a')
-  if success: f.write('success\n')
-  else: f.write('bump\n')
-  f.close()
-  time.sleep(1)
+  try: 
+    f=open(log_file, 'a')
+    if success: 
+      f.write('success\n')
+    else: 
+      f.write('bump\n')
+    f.close()
+    time.sleep(1)
+  except :
+    print('FAILED TO WRITE LOGFILE: ')
   #kill process
   if os.path.isfile(pidfile):
     with open(pidfile, 'r') as pf:
@@ -54,7 +59,7 @@ def shutdown():
 
 def time_check():
   global start_time, shuttingdown, success
-  if (int(rospy.get_time()-start_time)) > flight_duration:
+  if (int(rospy.get_time()-start_time)) > flight_duration and not shuttingdown:
     print('time > eva_time----------success!')
     success=True
     shuttingdown=True
@@ -69,8 +74,8 @@ def image_callback(msg):
   except CvBridgeError, e:
     print(e)
   else:
-    print('min distance: ', min_distance)
-    if min_distance < min_allowed_distance:
+    #print('min distance: ', min_distance)
+    if min_distance < min_allowed_distance and not shuttingdown:
       print('bump')
       success=False
       shuttingdown=True
@@ -86,13 +91,12 @@ def gt_callback(data):
     ready_pub.publish(Empty())
     ready = True
   #print 'dis: ',(current_pos[0]**2+current_pos[1]**2)
-  if eva_dis!=-1 and (current_pos[0]**2+current_pos[1]**2) > eva_dis:
-    print 'dis > eva_dis-----------success!'
+  # if (current_pos[0] > 52 or current_pos[1] > 30) and not shuttingdown:  
+  if eva_dis!=-1 and (current_pos[0]**2+current_pos[1]**2) > eva_dis and not shuttingdown:
+    print '-----------success!'
     success = True
     shuttingdown = True
     shutdown()
-  
-  
 
 
 if __name__=="__main__":
@@ -109,7 +113,7 @@ if __name__=="__main__":
     starting_height=rospy.get_param('starting_height')
   if rospy.has_param('eva_dis'):
     eva_dis=rospy.get_param('eva_dis')
-  print '-----------------------------EVALUATION: eva_dis= ',eva_dis
+  print '-----------------------------EVALUATION: evadis= ',eva_dis
   if rospy.has_param('saving_location'):
     loc=rospy.get_param('saving_location')
     if loc[0]=='/':

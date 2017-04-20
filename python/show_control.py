@@ -20,7 +20,7 @@ start_time = None
 end_time = None
 saving_location = ''
 current_control = 0
-color=(240,200,0)
+current_trg_control = 0
 neural_control=False
 font = cv2.FONT_HERSHEY_SIMPLEX
 count=0
@@ -32,7 +32,7 @@ def print_dur(start_time, end_time):
   duration = (end_time-start_time)
   m, s = divmod(duration, 60)
   h, m = divmod(m, 60)
-  return "time: %02dm:%02ds" % (m, s)
+  return "%02dm:%02ds" % (m, s)
 
 def image_callback(msg):
   global end_time, count
@@ -46,22 +46,27 @@ def image_callback(msg):
     xs=int(img.shape[1]/2)
     ys=int(img.shape[0]/2)
     #print('size: ',xs,ys)
-    cv2.line(img, (xs, ys), (int(xs-200*current_control),ys),color, 5)
+    cv2.line(img, (xs, ys), (int(xs-200*current_control),ys),(240,200,0), 5)
+    if current_trg_control != 0:
+      cv2.line(img, (xs, ys+10), (int(xs-200*current_trg_control),ys+10),(240,0,200), 5)
     # Draw time
     if neural_control: 
       end_time = rospy.get_time()
     if start_time and end_time:
-      cv2.putText(img,print_dur(start_time, end_time),(60,50), font, 1,color,2)
+      cv2.putText(img,print_dur(start_time, end_time),(10,40), font, 1,(240,200,200),2)
          
     if neural_control:
-      cv2.putText(img,"Neural Control on",(xs,40), font, 1,(0,255,0),2)
+      cv2.putText(img,"Control on",(xs+139,40), font, 1,(0,255,0),2)
     else:
-      cv2.putText(img,"Neural Control off",(xs,40), font, 1,(0,0,255),2)
+      cv2.putText(img,"Control off",(xs+137,40), font, 1,(0,0,255),2)
+    
+    cv2.putText(img,"Online",(img.shape[1]-105,img.shape[0]-55), font, 1,(240,200,0),2)
+    cv2.putText(img,"Supervised",(img.shape[1]-180,img.shape[0]-15), font, 1,(240,0,200),2)  
     
     if recording:
       cv2.circle(img,(30,40), 20, (0,0,255), -1)
     
-    cv2.imshow('my specialized interface',img)
+    cv2.imshow('Control',img)
     cv2.waitKey(2)
     if recording :
       cv2.imwrite(saving_location+'/'+'{0:010d}.jpg'.format(count),img)
@@ -91,6 +96,13 @@ def control_callback(data):
   #if not ready: return
   #else:
   current_control = data.angular.z
+  
+def trgt_control_callback(data):
+  global current_trg_control
+  #if not ready: return
+  #else:
+  current_trg_control = data.angular.z
+
     
 
 if __name__=="__main__":
@@ -114,7 +126,11 @@ if __name__=="__main__":
     real=bool(rospy.get_param('real')!='False')
   else:
     real=False
-  print('--------------------------------real: ',real)
+  if rospy.has_param('supervision'):
+    supervision=bool(rospy.get_param('supervision')!='false')
+  else:
+    supervision=False
+  #print('--------------------------------real: ',real)
   
   rospy.init_node('show_control', anonymous=True)
   if real:
@@ -132,6 +148,9 @@ if __name__=="__main__":
     rospy.Subscriber('/cmd_vel', Twist, control_callback)
     if save_images:
       rospy.Subscriber('/rec_on', Empty, recon_callback) 
-      rospy.Subscriber('/rec_off', Empty, recoff_callback) 
+      rospy.Subscriber('/rec_off', Empty, recoff_callback)
+    if supervision:
+      rospy.Subscriber('/supervised_vel', Twist, trgt_control_callback)
+      
     
   rospy.spin()

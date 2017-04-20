@@ -2,6 +2,8 @@
 <launch>
 	<!--Read data parameters from yaml file-->
 	<rosparam command="load" file="$(find sandbox)/parameters/online_param.yaml" />
+  <arg name="starting_height" default="0.5"/>
+  <param name="starting_height" value="$(arg starting_height)"/>
   <arg name="log_file" default="/home/klaas/tmp/log"/>
   <param name="log_file" value="$(arg log_file)"/>
   <!-- <arg name="saving_location" default="/home/klaas/tmp"/>
