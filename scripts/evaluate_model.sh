@@ -5,7 +5,7 @@ echo "$(date +%F_%H:%M) Evaluate model"
 # Settings:
 LAUNCHFILE="simulation_supervised_corridor.launch"
 WORLD_DIR="esat_corridor"
-MODELDIR="2017-03-31_1340_esat_noisy" #"2017-03-10_0957_esat_offline_7" 
+MODELDIR="2017-04-23_1016_esat_cont_depth0420_1514" #"2017-03-10_0957_esat_offline_7" 
 # if the distance to the starting point (0,0) is larger than this evaluation value, the simulation world is succeeded.
 #EVA_DIS=(80 150 3300 3300)
 EVA_DIS=(3100)

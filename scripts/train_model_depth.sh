@@ -3,25 +3,27 @@
 # Settings:
 LAUNCHFILE="simulation_supervised_corridor.launch"
 WORLD_DIR="bended_corridor" #"esat_corridor"
-MODELDIR="pretrained_depth" #"depth_control/2017-03-16_1446" #"2017-03-10_0957_esat_offline_7" 
+# MODELDIR="pretrained_depth" #"depth_control/2017-03-16_1446" #"2017-03-10_0957_esat_offline_7" 
 # if the distance to the starting point (0,0) is larger than this evaluation value, the simulation world is succeeded.
 #EVA_DIS=(80 150 3300 3300)
 EVA_DIS=(80) #(3100)
 
-NUMBER_OF_FLIGHTS=100
+NUMBER_OF_FLIGHTS=200
 RENDER=false
 RANDOM=125 #seed the random sequence
 crash_number=0
 # Start python online training/evaluation
-TAG="testing" #"pre_depth_aux_bended" 
+#TAG="testing" #"pre_depth_aux_bended" 
+TAG="test" #"pre_depth_aux_bended" 
 mkdir -p /home/klaas/tensorflow2/log/$TAG
 LOGDIR="$TAG/$(date +%F_%H%M)"
 # Depth input with fc control:
 # PARAMS="--depth_input True --network fc_control --batch_size 100 --buffer_size 2000\
 #        --weight_replay True --weight_decay 0 --epsilon 0.001 --alpha 0.0001 --dropout_keep_prob 0.9\
 #        --speed 1.8" 
-PARAMS="--owr True --show_depth True --plot_depth True --auxiliary_depth True --speed 0.6"
-ARGUMENTS="--log_tag $LOGDIR $PARAMS  --model_path $MODELDIR"
+PARAMS="--owr True --show_depth False --speed 0.6 --auxiliary_depth True" #--plot_depth True 
+ARGUMENTS="--log_tag $LOGDIR $PARAMS"
+# ARGUMENTS="--log_tag $LOGDIR $PARAMS  --model_path $MODELDIR"
 # ARGUMENTS="--continue_training True --log_tag $LOGDIR --checkpoint_path $MODELDIR $PARAMS"
 COMMANDP="/home/klaas/sandbox_ws/src/sandbox/scripts/start_python.sh $ARGUMENTS"
 echo $COMMANDP

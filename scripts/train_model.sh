@@ -5,24 +5,24 @@
 # Settings:
 LAUNCHFILE="simulation_supervised_corridor.launch"
 WORLD_DIR="esat_corridor"
-MODELDIR="2017-03-31_1340_esat_noisy" #"2017-03-20_1250_esat"
+MODELDIR="2017-04-23_1016_esat_cont_depth0420_1514" #"2017-03-20_1250_esat"
 # if the distance to the starting point (0,0) is larger than this evaluation value, the simulation world is succeeded.
 #EVA_DIS=(80 150 3300 3300)
 EVA_DIS=(3100)
 
-NUMBER_OF_FLIGHTS=100
+NUMBER_OF_FLIGHTS=1000
 RENDER=false
 RANDOM=125 #seed the random sequence
 
 # Start python online training/evaluation
-TAG="train_off_noisy" #"wd_$WEIGHT_DECAY-bs_$BUFFER_SIZE"
+TAG="train_esat_pretrained_esat_noisy_grad_desc_drop" #"wd_$WEIGHT_DECAY-bs_$BUFFER_SIZE"
 mkdir -p /home/klaas/tensorflow2/log/$TAG
 LOGDIR="$TAG/$(date +%F_%H%M)"
 # Depth input with fc control:
 # Normal network:
 # PARAMS="--owr True --epsilon 0.001 --alpha 0.0001 --dropout_keep_prob 0.9 --auxiliary_depth True"
-PARAMS="--owr True --epsilon 0.001 --alpha 0.0001 --dropout_keep_prob 0.9"
-ARGUMENTS="--log_tag $LOGDIR --model_path $MODELDIR $PARAMS" # --continue_training True --checkpoint_path offline_aux/2017-03-23_1727
+PARAMS="--owr True --dropout_keep_prob 0.5 --optimizer gradientdescent"
+ARGUMENTS="--continue_training True --log_tag $LOGDIR --checkpoint_path $MODELDIR $PARAMS" # --continue_training True --checkpoint_path offline_aux/2017-03-23_1727
 COMMANDP="/home/klaas/sandbox_ws/src/sandbox/scripts/start_python.sh $ARGUMENTS"
 echo $COMMANDP
 xterm -hold -e $COMMANDP &
@@ -63,14 +63,14 @@ do
   world_name=$(printf %s/%010d%s $WORLD_DIR $NUM ".world")
   if [[ $LAUNCHFILE == *"corridor"* ]] ;then
     if [[ $NUM = 0 || $NUM = 2 ]] ; then   
-      # x=$(awk "BEGIN {print -1+2*$((RANDOM%=100))/100}")
-      # y=$(awk "BEGIN {print $((RANDOM%=100))/100}")   
-      # Y=$(awk "BEGIN {print 1.57-0.25+0.5*$((RANDOM%=100))/100}")
-      # z=$(awk "BEGIN {print 0.5+1.*$((RANDOM%=100))/100}")
-      x=0
-      y=0
-      z=1
-      Y=1.57
+      x=$(awk "BEGIN {print -1+2*$((RANDOM%=100))/100}")
+      y=$(awk "BEGIN {print $((RANDOM%=100))/100}")   
+      Y=$(awk "BEGIN {print 1.57-0.25+0.5*$((RANDOM%=100))/100}")
+      z=$(awk "BEGIN {print 0.5+1.*$((RANDOM%=100))/100}")
+      # x=0
+      # y=0
+      # z=1
+      # Y=1.57
     else #corridor 1 is more tricky and does not allow much change
       x=0
       y=0
@@ -146,9 +146,9 @@ do
       fi
     fi
   done
-  if [ $DIFF -lt 300 ] ; then
-    crash_number=0
-  fi
+  # if [ $DIFF -lt 300 ] ; then
+  #   crash_number=0
+  # fi
 	if [ $RENDER = true ] ;
 	then
 		echo "kill gzclient"
@@ -160,7 +160,7 @@ do
   #else
   #  python viz_trajectories.py $LOGDIR  False&
   #fi
-	sleep 15
+	sleep 5
 done
 kill_combo
 
